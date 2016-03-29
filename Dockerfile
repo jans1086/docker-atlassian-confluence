@@ -59,7 +59,7 @@ COPY docker-entrypoint.sh /
 
 
 COPY "atlassian-extras-decoder-v2-3.2.jar" "/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/"
-COPY "Confluence-Language-STD-CN.jar" "/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/"
+COPY "Confluence-Language-STD-CN.jar" "/opt/atlassian/confluence/confluence/WEB-INF/lib"
 
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
