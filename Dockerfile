@@ -16,6 +16,7 @@ RUN set -x \
     && chown daemon:daemon     "${CONF_HOME}" \
     && mkdir -p                "${CONF_INSTALL}/conf" \
     && curl -Ls                "http://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONF_VERSION}.tar.gz" | tar -xz --directory "${CONF_INSTALL}" --strip-components=1 --no-same-owner \
+    && rm -f /opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-decoder-v2-3.2.jar \
     && curl -Ls                "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.tar.gz" | tar -xz --directory "${CONF_INSTALL}/confluence/WEB-INF/lib" --strip-components=1 --no-same-owner "mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar" \
     && chmod -R 700            "${CONF_INSTALL}/conf" \
     && chmod -R 700            "${CONF_INSTALL}/temp" \
@@ -55,6 +56,12 @@ VOLUME ["/var/atlassian/confluence", "/opt/atlassian/confluence/logs"]
 WORKDIR /var/atlassian/confluence
 
 COPY docker-entrypoint.sh /
+
+
+COPY "atlassian-extras-decoder-v2-3.2.jar" "/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/"
+COPY "Confluence-Language-STD-CN.jar" "/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/"
+
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Run Atlassian Confluence as a foreground process by default.
