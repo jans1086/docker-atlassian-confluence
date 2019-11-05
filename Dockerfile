@@ -1,4 +1,4 @@
-FROM daocloud.io/java:8
+FROM daocloud.io/java:7
 
 # Setup useful environment variables
 ENV CONF_HOME     /var/atlassian/confluence
